@@ -1,0 +1,39 @@
+{
+    "name": "quanta/http-responder",
+    "type": "library",
+    "description": "Minimalist library to create Psr-7 responses",
+    "keywords": [
+        "psr-7",
+        "response"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/quantaphp/http-responder",
+    "support": {
+        "issues": "https://github.com/quantaphp/http-responder/issues",
+        "source": "https://github.com/quantaphp/http-responder"
+    },
+    "authors": [
+        {
+            "name": "pmall",
+            "email": "pierre.mallinjoud@gmail.com"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": "^7.4",
+        "psr/http-factory": "^1.0",
+        "psr/http-message": "^1.0"
+    },
+    "require-dev": {
+        "eloquent/phony-kahlan": "^3.0",
+        "kahlan/kahlan": "^4.7",
+        "phpstan/phpstan": "^0.12.25"
+    },
+    "autoload": {
+        "psr-4": {
+            "Quanta\\Http\\": "src"
+        }
+    }
+}
