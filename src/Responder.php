@@ -52,14 +52,20 @@ final class Responder
                     ->withHeader('Location', $body);
             }
 
-            throw new \InvalidArgumentException('Redirect response (301 and 302 codes) body must be a string (the url)');
+            throw new \InvalidArgumentException('Redirect responses (301 and 302 codes) must have a string body (the url)');
         }
 
         if (is_string($body)) {
             return $this->response($code, $body, 'text/html');
         }
 
-        $body = json_encode($body, $this->options | JSON_THROW_ON_ERROR, $this->depth);
+        try {
+            $body = json_encode($body, $this->options | JSON_THROW_ON_ERROR, $this->depth);
+        }
+
+        catch (\JsonException $e) {
+            throw new \InvalidArgumentException('The given body can\'t be encoded as json');
+        }
 
         if ($body === false) throw new \Exception;
 
