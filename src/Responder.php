@@ -39,8 +39,8 @@ final class Responder
     /**
      * Return a response according to the given code and body.
      *
-     * @param int   $code
-     * @param mixed $body
+     * @param int               $code
+     * @param string|mixed[]    $body
      * @return \Psr\Http\Message\ResponseInterface
      * @throws \InvalidArgumentException
      */
