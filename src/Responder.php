@@ -37,6 +37,18 @@ final class Responder
     }
 
     /**
+     * Proxy of response method.
+     *
+     * @param int               $code
+     * @param string|mixed[]    $body
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function __invoke(int $code, $body = ''): ResponseInterface
+    {
+        return $this->response($code, $body);
+    }
+
+    /**
      * Return a response according to the given code and body.
      *
      * @param int               $code
@@ -44,7 +56,7 @@ final class Responder
      * @return \Psr\Http\Message\ResponseInterface
      * @throws \InvalidArgumentException
      */
-    public function __invoke(int $code, $body = ''): ResponseInterface
+    public function response(int $code, $body = ''): ResponseInterface
     {
         if ($code == 301 || $code == 302) {
             if (is_string($body)) {
@@ -56,7 +68,7 @@ final class Responder
         }
 
         if (is_string($body)) {
-            return $this->response($code, $body, 'text/html');
+            return $this->result($code, $body, 'text/html');
         }
 
         try {
@@ -69,7 +81,7 @@ final class Responder
 
         if ($body === false) throw new \Exception;
 
-        return $this->response($code, $body, 'application/json');
+        return $this->result($code, $body, 'application/json');
     }
 
     /**
@@ -82,7 +94,7 @@ final class Responder
      * @param string    $type
      * @return \Psr\Http\Message\ResponseInterface
      */
-    private function response(int $code, string $body, string $type): ResponseInterface
+    private function result(int $code, string $body, string $type): ResponseInterface
     {
         $response = $this->factory->createResponse($code);
 
